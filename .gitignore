@@ -1,0 +1,7 @@
+.claude
+dbt/logs/
+dbt/target/
+dbt/.user.yml
+.keys/
+*.p8
+*.pem

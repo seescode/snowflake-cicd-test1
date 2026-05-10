@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: health_insurance
+    database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+    schema: "{{ env_var('SNOWFLAKE_SCHEMA') }}"
+    tables:
+      - name: members
+      - name: providers
+      - name: claims

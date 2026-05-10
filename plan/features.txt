@@ -1,0 +1,37 @@
+Features for the Snowflake CI/CD reference template. High-level only.
+
+- [x] Feature 1: Repo structure
+  snowflake/ (tables, views, stored_procedures, snowflake.yml), dbt/, .azure/, scripts/
+
+- [x] Feature 2: Snowflake example objects (health insurance domain)
+  members table, providers table, claims table, vw_claims_summary view, process_claim stored procedure
+
+- [x] Feature 3: dbt example project
+  Staging models (stg_members, stg_providers, stg_claims) and mart (mart_claims_summary) on top of native objects.
+  profiles.yml with env var templating. Generic tests (not_null, unique, accepted_values, relationships) as examples.
+
+- [x] Feature 4: Snowflake CLI config (snowflake.yml)
+  Single file with <% ctx.env.VAR %> templating for database, schema, role, and warehouse per environment.
+
+- [x] Feature 5: Azure Pipelines CI pipeline
+  Triggers on all branches and PRs. Deploys to isolated dev schema (named by Git username) on feature branch push.
+  Runs smoke tests via snow sql (INFORMATION_SCHEMA checks + SELECT views + CALL stored procs), then dbt run + dbt test.
+
+- [x] Feature 6: Azure Pipelines CD pipeline
+  Triggers on merge to main (prod) or test branch. Separate ADO stages per environment (dev, test, prod).
+  Deploy order per stage: tables -> views -> stored procs -> dbt run -> dbt test.
+  Manual approval gates before test and prod stages.
+
+- [x] Feature 7: Environment and Snowflake resource layout
+  One database per environment (MYPROJECT_DEV, MYPROJECT_TEST, MYPROJECT_PROD).
+  One virtual warehouse per environment (DEV_WH, TEST_WH, PROD_WH).
+  One CICD service role per environment (CICD_DEV_ROLE, CICD_TEST_ROLE, CICD_PROD_ROLE).
+  Dev database has isolated schemas per developer (MYPROJECT_DEV.<GIT_USERNAME>).
+
+- [x] Feature 8: Credentials and authentication
+  Key-pair auth for the Snowflake CLI service account.
+  ADO Variable Groups (one per environment) storing connection details as secret variables.
+
+- [x] Feature 9: Setup documentation (README)
+  Step-by-step guide: create Snowflake resources (databases, warehouses, roles, service account + key pair),
+  configure ADO variable groups, fork and adapt the template for a new project.

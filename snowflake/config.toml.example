@@ -1,0 +1,32 @@
+default_connection_name = "dev"
+
+# Copy this file to ~/.snowflake/config.toml and fill in your values.
+# Each connection maps to one environment. The CI pipeline uses environment
+# variables instead of this file; see the ADO variable group for each env.
+
+[connections.dev]
+account           = "<your-snowflake-account>"         # e.g. xy12345.us-east-1
+user              = "<your-username>"
+private_key_path  = "~/.snowflake/rsa_key.p8"
+role              = "CICD_DEV_ROLE"
+database          = "MYPROJECT_DEV"
+schema            = "<your-git-username>"              # isolated dev schema
+warehouse         = "DEV_WH"
+
+[connections.test]
+account           = "<your-snowflake-account>"
+user              = "<cicd-service-account>"
+private_key_path  = "~/.snowflake/rsa_key_test.p8"
+role              = "CICD_TEST_ROLE"
+database          = "MYPROJECT_TEST"
+schema            = "PUBLIC"
+warehouse         = "TEST_WH"
+
+[connections.prod]
+account           = "<your-snowflake-account>"
+user              = "<cicd-service-account>"
+private_key_path  = "~/.snowflake/rsa_key_prod.p8"
+role              = "CICD_PROD_ROLE"
+database          = "MYPROJECT_PROD"
+schema            = "PUBLIC"
+warehouse         = "PROD_WH"

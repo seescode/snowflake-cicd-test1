@@ -1,0 +1,17 @@
+name: health_insurance
+version: "1.0.0"
+config-version: 2
+
+profile: health_insurance
+
+model-paths: ["models"]
+test-paths: ["tests"]
+
+models:
+  health_insurance:
+    staging:
+      +schema: staging
+      +materialized: view
+    marts:
+      +schema: marts
+      +materialized: table
