@@ -5,3 +5,9 @@ Details: Added "Configure Snowflake CLI connection" step after "Write private ke
          three stages (CI, CD_Test, CD_Prod). The step writes ~/.snowflake/config.toml from the
          pipeline env vars so that `snow sql` can find a named connection ("default").
 Test results: N/A (pipeline change, to be verified by re-running the PR pipeline in Azure DevOps)
+
+2026-05-11T00:10:00Z
+Task: Fix Snowflake CLI "Private Key authentication requires authenticator set to SNOWFLAKE_JWT"
+Files changed: .azure/azure-pipelines.yml
+Details: Added authenticator = "snowflake_jwt" to the config.toml written in all three stages.
+Test results: N/A (pipeline change, to be verified by re-running the PR pipeline in Azure DevOps)
