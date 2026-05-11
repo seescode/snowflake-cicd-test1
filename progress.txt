@@ -1,0 +1,7 @@
+2026-05-11T00:05:36Z
+Task: Fix Snowflake CLI "Connection default is not configured" error in Azure DevOps pipeline
+Files changed: .azure/azure-pipelines.yml
+Details: Added "Configure Snowflake CLI connection" step after "Write private key" step in all
+         three stages (CI, CD_Test, CD_Prod). The step writes ~/.snowflake/config.toml from the
+         pipeline env vars so that `snow sql` can find a named connection ("default").
+Test results: N/A (pipeline change, to be verified by re-running the PR pipeline in Azure DevOps)
