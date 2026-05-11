@@ -11,3 +11,11 @@ Task: Fix Snowflake CLI "Private Key authentication requires authenticator set t
 Files changed: .azure/azure-pipelines.yml
 Details: Added authenticator = "snowflake_jwt" to the config.toml written in all three stages.
 Test results: N/A (pipeline change, to be verified by re-running the PR pipeline in Azure DevOps)
+
+2026-05-11T00:20:00Z
+Task: Fix OpenSSL "Could not deserialize key data" / unsupported algorithm error
+Files changed: .azure/azure-pipelines.yml
+Details: ADO secret variables store multiline PEM keys with literal \n sequences instead of
+         actual newlines. Added `sed 's/\\n/\n/g'` in all three private-key write steps to
+         convert them to real newlines before writing /tmp/rsa_key.p8.
+Test results: N/A (pipeline change, to be verified by re-running the PR pipeline in Azure DevOps)
