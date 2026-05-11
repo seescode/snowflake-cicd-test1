@@ -7,4 +7,4 @@ USE WAREHOUSE <%wh%>;
 
 !source views/vw_claims_summary.sql
 
-!source procedures/process_claim.sql
+!source stored_procedures/process_claim.sql

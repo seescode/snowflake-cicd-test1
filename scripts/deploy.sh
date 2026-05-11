@@ -24,6 +24,6 @@ echo "Deploying to: $SNOWFLAKE_DATABASE.$SNOWFLAKE_SCHEMA (role=$SNOWFLAKE_ROLE,
 # Resolve paths relative to this script so it works from any working directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Run from SCRIPT_DIR so the -f path resolves correctly
-cd "$SCRIPT_DIR"
-snow sql -f ../snowflake/deploy.sql -D db="$SNOWFLAKE_DATABASE" -D schema="$SNOWFLAKE_SCHEMA" -D wh="$SNOWFLAKE_WAREHOUSE"
+# Run from the snowflake/ directory so !source paths in deploy.sql resolve correctly
+cd "$SCRIPT_DIR/../snowflake"
+snow sql -f deploy.sql -D db="$SNOWFLAKE_DATABASE" -D schema="$SNOWFLAKE_SCHEMA" -D wh="$SNOWFLAKE_WAREHOUSE"
