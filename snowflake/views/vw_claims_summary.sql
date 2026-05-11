@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW vw_claims_summary AS
+CREATE OR REPLACE VIEW <%db%>.<%schema%>.vw_claims_summary AS
 SELECT
     c.claim_id,
     c.service_date,

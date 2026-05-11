@@ -1,4 +1,4 @@
-CREATE OR REPLACE TABLE claims (
+CREATE TABLE <%db%>.<%schema%>.claims (
     claim_id        VARCHAR(36)     NOT NULL,
     member_id       VARCHAR(36)     NOT NULL,
     provider_id     VARCHAR(36)     NOT NULL,

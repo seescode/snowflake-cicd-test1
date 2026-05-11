@@ -1,0 +1,32 @@
+2026-05-11T00:05:36Z
+Task: Fix Snowflake CLI "Connection default is not configured" error in Azure DevOps pipeline
+Files changed: .azure/azure-pipelines.yml
+Details: Added "Configure Snowflake CLI connection" step after "Write private key" step in all
+         three stages (CI, CD_Test, CD_Prod). The step writes ~/.snowflake/config.toml from the
+         pipeline env vars so that `snow sql` can find a named connection ("default").
+Test results: N/A (pipeline change, to be verified by re-running the PR pipeline in Azure DevOps)
+
+2026-05-11T00:10:00Z
+Task: Fix Snowflake CLI "Private Key authentication requires authenticator set to SNOWFLAKE_JWT"
+Files changed: .azure/azure-pipelines.yml
+Details: Added authenticator = "snowflake_jwt" to the config.toml written in all three stages.
+Test results: N/A (pipeline change, to be verified by re-running the PR pipeline in Azure DevOps)
+
+2026-05-11T00:20:00Z
+Task: Fix OpenSSL "Could not deserialize key data" / unsupported algorithm error
+Files changed: .azure/azure-pipelines.yml
+Details: ADO secret variables store multiline PEM keys with literal \n sequences instead of
+         actual newlines. Added `sed 's/\\n/\n/g'` in all three private-key write steps to
+         convert them to real newlines before writing /tmp/rsa_key.p8.
+Test results: N/A (pipeline change, to be verified by re-running the PR pipeline in Azure DevOps)
+
+2026-05-10T00:00:00Z
+Task: Fix "Could not read" errors for all !source paths in deploy.sql
+Files changed: scripts/deploy.sh, snowflake/deploy.sql
+Details: Two bugs fixed:
+  1. deploy.sh was cd-ing to scripts/ before running snow sql, causing all !source paths to
+     resolve relative to scripts/ where no tables/views/procedures subdirs exist. Fixed by
+     cd-ing to snowflake/ instead and using -f deploy.sql (relative to that dir).
+  2. deploy.sql referenced procedures/process_claim.sql but the actual folder is
+     stored_procedures/. Fixed path to !source stored_procedures/process_claim.sql.
+Test results: N/A (pipeline change, to be verified by re-running the PR pipeline in Azure DevOps)

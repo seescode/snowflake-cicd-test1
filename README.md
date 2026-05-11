@@ -2,13 +2,6 @@
 
 A ready-to-use template for deploying Snowflake objects and dbt models via Azure Pipelines. Includes isolated developer schemas, per-environment credentials, and manual approval gates for test and prod.
 
-## Tech stack
-
-- **Snowflake CLI** — deploys native objects (tables, views, stored procedures)
-- **dbt-snowflake** — runs transformations and tests on top of native objects
-- **Azure Pipelines** — CI/CD orchestration
-- **GitHub** — source control
-
 ## Repo structure
 
 ```

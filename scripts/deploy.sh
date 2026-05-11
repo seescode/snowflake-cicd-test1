@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Deploy Snowflake objects in dependency order: tables -> views -> stored_procedures.
-# Connection is configured via environment variables picked up automatically by
-# the Snowflake CLI. For local development use ~/.snowflake/config.toml instead.
-
 REQUIRED_VARS=(
   SNOWFLAKE_ACCOUNT
   SNOWFLAKE_USER
@@ -24,28 +20,10 @@ done
 
 echo "Deploying to: $SNOWFLAKE_DATABASE.$SNOWFLAKE_SCHEMA (role=$SNOWFLAKE_ROLE, warehouse=$SNOWFLAKE_WAREHOUSE)"
 
-# Create the target schema if it doesn't exist (required for per-developer
-# dev schemas, which are not pre-created by admin_setup.sql).
-snow sql -q "CREATE SCHEMA IF NOT EXISTS ${SNOWFLAKE_DATABASE}.${SNOWFLAKE_SCHEMA};"
 
+# Resolve paths relative to this script so it works from any working directory
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-SNOWFLAKE_DIR="$SCRIPT_DIR/../snowflake"
 
-deploy_dir() {
-  local dir="$1"
-  local count=0
-  echo "--- $dir ---"
-  for sql_file in "$SNOWFLAKE_DIR/$dir"/*.sql; do
-    [[ -f "$sql_file" ]] || continue
-    echo "  deploying $(basename "$sql_file")"
-    snow sql -f "$sql_file"
-    (( count++ ))
-  done
-  echo "  $count file(s) deployed"
-}
-
-deploy_dir tables
-deploy_dir views
-deploy_dir stored_procedures
-
-echo "Deploy complete."
+# Run from the snowflake/ directory so !source paths in deploy.sql resolve correctly
+cd "$SCRIPT_DIR/../snowflake"
+snow sql -f deploy.sql -D db="$SNOWFLAKE_DATABASE" -D schema="$SNOWFLAKE_SCHEMA" -D wh="$SNOWFLAKE_WAREHOUSE"
