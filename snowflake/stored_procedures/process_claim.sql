@@ -1,4 +1,4 @@
-CREATE OR REPLACE PROCEDURE process_claim(claim_id VARCHAR)
+CREATE OR REPLACE PROCEDURE <%db%>.<%schema%>.process_claim(claim_id VARCHAR)
 RETURNS VARCHAR
 LANGUAGE SQL
 AS
