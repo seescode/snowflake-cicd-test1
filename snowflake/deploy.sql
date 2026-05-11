@@ -1,10 +1,10 @@
 -- Set context
 USE WAREHOUSE <%wh%>;
 
-!source ./tables/claims.sql
-!source ./tables/members.sql
-!source ./tables/providers.sql
+!source tables/claims.sql
+!source tables/members.sql
+!source tables/providers.sql
 
-!source ./views/vw_claims_summary.sql
+!source views/vw_claims_summary.sql
 
-!source ./procedures/process_claim.sql
+!source procedures/process_claim.sql
